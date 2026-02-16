@@ -16,6 +16,8 @@ export const M7_KNOCKOUT_MATCHES: MatchResult[] = [
     score2: 0,
     date: "2026-01-25",
     status: "completed",
+    liquipediaUrl: "https://liquipedia.net/mobilelegends/M7_World_Championship",
+    gosuGamersUrl: "https://www.gosugamers.net/mobile-legends/tournaments/70000-m7-world-championship",
     games: [
       {
         game: 1,
@@ -61,6 +63,7 @@ export const M7_KNOCKOUT_MATCHES: MatchResult[] = [
     score2: 3,
     date: "2026-01-24",
     status: "completed",
+    liquipediaUrl: "https://liquipedia.net/mobilelegends/M7_World_Championship",
     games: [
       {
         game: 1,
@@ -106,6 +109,8 @@ export const M7_KNOCKOUT_MATCHES: MatchResult[] = [
     score2: 3,
     date: "2026-01-24",
     status: "completed",
+    liquipediaUrl: "https://liquipedia.net/mobilelegends/M7_World_Championship/Knockout_Stage",
+    gosuGamersUrl: "https://www.gosugamers.net/mobile-legends/tournaments/70000-m7-world-championship",
     games: [
       {
         game: 1,

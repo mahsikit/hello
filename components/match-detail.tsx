@@ -1,6 +1,6 @@
 "use client"
 
-import { X, Trophy, Ban, Shield } from "lucide-react"
+import { X, Trophy, Ban, Shield, ExternalLink } from "lucide-react"
 import type { MatchResult, GameDraft } from "@/lib/types"
 import { getHeroRole, ROLE_COLORS, type HeroRole } from "@/lib/mlbb-heroes"
 
@@ -239,6 +239,34 @@ export function MatchDetail({
             )}
           </div>
         </div>
+
+        {/* External Links */}
+        {(match.gosuGamersUrl || match.liquipediaUrl) && (
+          <div className="flex items-center justify-center gap-3 border-b border-border px-6 py-4">
+            {match.gosuGamersUrl && (
+              <a
+                href={match.gosuGamersUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80 hover:text-primary"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View on GosuGamers
+              </a>
+            )}
+            {match.liquipediaUrl && (
+              <a
+                href={match.liquipediaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80 hover:text-primary"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View on Liquipedia
+              </a>
+            )}
+          </div>
+        )}
 
         {/* Games with drafts */}
         <div className="flex flex-col gap-4 p-6">
