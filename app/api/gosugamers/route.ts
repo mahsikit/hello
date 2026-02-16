@@ -174,6 +174,17 @@ async function scrapeGosuMatches(): Promise<MatchResult[]> {
             /class="[^"]*date[^"]*"[^>]*>([^<]+)</
           )
 
+          // Try to extract match URL
+          const urlMatch = block.match(/href="([^"]*\/matches\/\d+[^"]*)"/) ||
+                          block.match(/href="([^"]*\/match\/\d+[^"]*)"/)
+          let gosuGamersUrl: string | undefined
+          if (urlMatch) {
+            const path = urlMatch[1]
+            gosuGamersUrl = path.startsWith("http")
+              ? path
+              : `https://www.gosugamers.net${path.startsWith("/") ? "" : "/"}${path}`
+          }
+
           if (teamNames && teamNames.length >= 2 && scoreMatches) {
             matchResults.push({
               tournament: tournamentMatch
@@ -187,6 +198,7 @@ async function scrapeGosuMatches(): Promise<MatchResult[]> {
                 ? dateMatch[1].trim()
                 : new Date().toISOString().split("T")[0],
               status: "completed",
+              gosuGamersUrl,
             })
           }
         }
@@ -212,15 +224,29 @@ function extractMatchesFromJSON(html: string): MatchResult[] {
         json?.props?.pageProps?.data?.matches
       if (Array.isArray(matches)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return matches.slice(0, 15).map((m: any) => ({
-          tournament: String(m.tournament?.name || m.tournamentName || "MLBB Tournament"),
-          team1: String(m.team1?.name || m.opponent1 || "Team 1"),
-          team2: String(m.team2?.name || m.opponent2 || "Team 2"),
-          score1: Number(m.score1 ?? m.team1Score ?? 0),
-          score2: Number(m.score2 ?? m.team2Score ?? 0),
-          date: String(m.date || new Date().toISOString().split("T")[0]),
-          status: "completed" as const,
-        }))
+        return matches.slice(0, 15).map((m: any) => {
+          // Try to extract match URL from various possible fields
+          let gosuGamersUrl: string | undefined
+          const urlPath = m.url || m.matchUrl || m.path || m.slug
+          if (urlPath) {
+            gosuGamersUrl = urlPath.startsWith("http")
+              ? urlPath
+              : `https://www.gosugamers.net${urlPath.startsWith("/") ? "" : "/"}${urlPath}`
+          } else if (m.id || m.matchId) {
+            gosuGamersUrl = `https://www.gosugamers.net/mobile-legends/matches/${m.id || m.matchId}`
+          }
+
+          return {
+            tournament: String(m.tournament?.name || m.tournamentName || "MLBB Tournament"),
+            team1: String(m.team1?.name || m.opponent1 || "Team 1"),
+            team2: String(m.team2?.name || m.opponent2 || "Team 2"),
+            score1: Number(m.score1 ?? m.team1Score ?? 0),
+            score2: Number(m.score2 ?? m.team2Score ?? 0),
+            date: String(m.date || new Date().toISOString().split("T")[0]),
+            status: "completed" as const,
+            gosuGamersUrl,
+          }
+        })
       }
     }
   } catch {
