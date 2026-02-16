@@ -28,6 +28,8 @@ export interface MatchResult {
   date: string
   status: "completed" | "live" | "upcoming"
   games?: GameDraft[]
+  gosuGamersUrl?: string
+  liquipediaUrl?: string
 }
 
 export interface Tournament {

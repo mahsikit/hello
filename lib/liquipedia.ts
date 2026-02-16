@@ -52,17 +52,18 @@ async function fetchAndParseWikitext(
 
   if (!wikitext) throw new Error("No wikitext in API response")
 
-  return parseMatchesFromWikitext(wikitext, tournamentName)
+  const liquipediaUrl = `https://liquipedia.net/mobilelegends/${pageName}`
+  return parseMatchesFromWikitext(wikitext, tournamentName, liquipediaUrl)
 }
 
-function parseMatchesFromWikitext(wikitext: string, tournamentName: string): MatchResult[] {
+function parseMatchesFromWikitext(wikitext: string, tournamentName: string, liquipediaUrl: string): MatchResult[] {
   const matches: MatchResult[] = []
 
   // Find all {{Match ... }} blocks (handling nested templates)
   const matchBlocks = extractMatchBlocks(wikitext)
 
   for (const block of matchBlocks) {
-    const match = parseMatchBlock(block, tournamentName)
+    const match = parseMatchBlock(block, tournamentName, liquipediaUrl)
     if (match) matches.push(match)
   }
 
@@ -101,7 +102,7 @@ function extractMatchBlocks(wikitext: string): string[] {
   return blocks
 }
 
-function parseMatchBlock(block: string, tournamentName: string): MatchResult | null {
+function parseMatchBlock(block: string, tournamentName: string, liquipediaUrl: string): MatchResult | null {
   // Extract opponent names
   // Pattern: |opponent1={{TeamOpponent|Team Name|score=X}} or |opponent1={{TeamOpponent|Team Name}}
   const opp1Match = block.match(/\|opponent1\s*=\s*\{\{TeamOpponent\|([^|}]+)/)
@@ -158,6 +159,7 @@ function parseMatchBlock(block: string, tournamentName: string): MatchResult | n
     date: dateStr,
     status: "completed",
     games: games.length > 0 ? games : undefined,
+    liquipediaUrl,
   }
 }
 
@@ -244,7 +246,8 @@ export async function scrapeLiquipediaMatchesFromHTML(
       const html: string = data?.parse?.text?.["*"] || ""
       if (!html) continue
 
-      const matches = parseMatchesFromHTML(html, tournamentPath.replace(/_/g, " "))
+      const liquipediaUrl = `https://liquipedia.net/mobilelegends/${pageName}`
+      const matches = parseMatchesFromHTML(html, tournamentPath.replace(/_/g, " "), liquipediaUrl)
       allMatches.push(...matches)
     } catch {
       continue
@@ -254,7 +257,7 @@ export async function scrapeLiquipediaMatchesFromHTML(
   return allMatches
 }
 
-function parseMatchesFromHTML(html: string, tournamentName: string): MatchResult[] {
+function parseMatchesFromHTML(html: string, tournamentName: string, liquipediaUrl: string): MatchResult[] {
   const matches: MatchResult[] = []
 
   // Liquipedia renders match popups with class "brkts-popup brkts-match-info-popup"
@@ -313,6 +316,7 @@ function parseMatchesFromHTML(html: string, tournamentName: string): MatchResult
       date: new Date().toISOString().split("T")[0],
       status: "completed",
       games: games.length > 0 ? games : undefined,
+      liquipediaUrl,
     })
   }
 
