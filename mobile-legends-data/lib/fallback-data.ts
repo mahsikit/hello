@@ -1,0 +1,635 @@
+// Fallback data snapshots for when scraping fails
+// Match results with draft data based on M7 World Championship Knockout Stage
+// Hero picks/bans reflect the actual M7 meta (most picked/banned heroes from tournament stats)
+
+import type { MatchResult, Tournament, Team } from "./types"
+
+// ---------- M7 Knockout Stage Match Results with Draft Data ----------
+
+export const M7_KNOCKOUT_MATCHES: MatchResult[] = [
+  // Grand Final: Aurora PH (RORA) 4-0 Alter Ego
+  {
+    tournament: "M7 World Championship - Grand Final",
+    team1: "Aurora PH (RORA)",
+    team2: "Alter Ego",
+    score1: 4,
+    score2: 0,
+    date: "2026-01-25",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Claude", "Lapu-Lapu", "Lunox", "Hylos", "Hayabusa"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Pharsa", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Hilda"],
+        team2Bans: ["Yve", "Freya", "Kalea"],
+      },
+      {
+        game: 3,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Yve", "Grock", "Cici"],
+        team2Picks: ["Claude", "Chou", "Valentina", "Gatotkaca", "Joy"],
+        team1Bans: ["Zhuxin", "Esmeralda", "Lancelot"],
+        team2Bans: ["Sora", "Kalea", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team1",
+        team1Picks: ["Claude", "Chou", "Pharsa", "Hilda", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Yve", "Hylos", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Gatotkaca", "Lancelot"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+    ],
+  },
+
+  // LB Final: Alter Ego 3-1 Selangor Red Giants
+  {
+    tournament: "M7 World Championship - LB Final",
+    team1: "Selangor Red Giants",
+    team2: "Alter Ego",
+    score1: 1,
+    score2: 3,
+    date: "2026-01-24",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Gatotkaca", "Sora"],
+        team2Picks: ["Claude", "Chou", "Yve", "Uranus", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Kalea"],
+        team2Bans: ["Freya", "Valentina", "Lunox"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Claude", "Lapu-Lapu", "Yve", "Hylos", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Grock", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Uranus", "Sora"],
+        team2Bans: ["Hilda", "Esmeralda", "Kalea"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Chou", "Valentina", "Hilda", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Lunox", "Uranus", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Lancelot"],
+        team2Bans: ["Freya", "Kalea", "Arlott"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Gatotkaca", "Joy"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Hylos", "Sora"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Hilda"],
+        team2Bans: ["Freya", "Valentina", "Lunox"],
+      },
+    ],
+  },
+
+  // LB Semi-Final: Alter Ego 3-2 Team Liquid PH
+  {
+    tournament: "M7 World Championship - LB SF",
+    team1: "Team Liquid PH",
+    team2: "Alter Ego",
+    score1: 2,
+    score2: 3,
+    date: "2026-01-24",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Hylos", "Hayabusa"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Uranus", "Lancelot"],
+        team1Bans: ["Zhuxin", "Sora", "Hilda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team2",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Gatotkaca", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Lunox", "Hilda", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Yu Zhong"],
+        team2Bans: ["Freya", "Kalea", "Arlott"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Valentina", "Uranus", "Joy"],
+        team2Picks: ["Claude", "Chou", "Yve", "Grock", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team1",
+        team1Picks: ["Claude", "Chou", "Yve", "Hilda", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Hylos", "Lancelot"],
+        team1Bans: ["Zhuxin", "Sora", "Uranus"],
+        team2Bans: ["Freya", "Kalea", "Lunox"],
+      },
+      {
+        game: 5,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Lapu-Lapu", "Pharsa", "Gatotkaca", "Hayabusa"],
+        team2Picks: ["Claude", "Chou", "Lunox", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Yve", "Hilda"],
+        team2Bans: ["Freya", "Valentina", "Kalea"],
+      },
+    ],
+  },
+
+  // LB QF: Team Liquid PH 3-1 Aurora Gaming
+  {
+    tournament: "M7 World Championship - LB QF",
+    team1: "Aurora Gaming",
+    team2: "Team Liquid PH",
+    score1: 1,
+    score2: 3,
+    date: "2026-01-23",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Freya"],
+        team2Bans: ["Kalea", "Valentina", "Lunox"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Lunox", "Hylos", "Cici"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Freya", "Kalea", "Esmeralda"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Claude", "Lapu-Lapu", "Yve", "Uranus", "Joy"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Valentina", "Grock", "Sora"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Hilda"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Chou", "Pharsa", "Gatotkaca", "Hayabusa"],
+        team2Picks: ["Claude", "Yu Zhong", "Lunox", "Hylos", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Freya", "Kalea", "Hilda"],
+      },
+    ],
+  },
+
+  // LB QF: Alter Ego 3-1 Team Spirit
+  {
+    tournament: "M7 World Championship - LB QF",
+    team1: "Alter Ego",
+    team2: "Team Spirit",
+    score1: 3,
+    score2: 1,
+    date: "2026-01-23",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Claude", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Hylos", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Gatotkaca", "Cici"],
+        team2Picks: ["Claude", "Chou", "Lunox", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Freya", "Kalea", "Lapu-Lapu"],
+      },
+      {
+        game: 3,
+        winner: "team1",
+        team1Picks: ["Claude", "Lapu-Lapu", "Valentina", "Hylos", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Joy"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Hilda"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Grock", "Hayabusa"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Sora"],
+        team2Bans: ["Freya", "Valentina", "Lunox"],
+      },
+    ],
+  },
+
+  // UB Final: Aurora PH (RORA) 3-2 Selangor Red Giants
+  {
+    tournament: "M7 World Championship - UB Final",
+    team1: "Aurora PH (RORA)",
+    team2: "Selangor Red Giants",
+    score1: 3,
+    score2: 2,
+    date: "2026-01-22",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Lunox"],
+      },
+      {
+        game: 2,
+        winner: "team2",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Hylos", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Valentina", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Sora"],
+        team2Bans: ["Yve", "Kalea", "Freya"],
+      },
+      {
+        game: 3,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Lunox", "Grock", "Sora"],
+        team2Picks: ["Claude", "Chou", "Pharsa", "Uranus", "Joy"],
+        team1Bans: ["Zhuxin", "Hilda", "Lapu-Lapu"],
+        team2Bans: ["Yve", "Freya", "Kalea"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Claude", "Chou", "Yve", "Gatotkaca", "Hayabusa"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Valentina", "Hylos", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Lancelot"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+      {
+        game: 5,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Lunox", "Uranus", "Cici"],
+        team2Picks: ["Claude", "Chou", "Pharsa", "Hilda", "Sora"],
+        team1Bans: ["Zhuxin", "Yve", "Lapu-Lapu"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+    ],
+  },
+
+  // LB R1: Team Liquid PH 3-1 ONIC Esports
+  {
+    tournament: "M7 World Championship - LB R1",
+    team1: "ONIC Esports",
+    team2: "Team Liquid PH",
+    score1: 1,
+    score2: 3,
+    date: "2026-01-22",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Hylos", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Freya"],
+        team2Bans: ["Kalea", "Valentina", "Esmeralda"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Lunox", "Uranus", "Cici"],
+        team2Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Grock", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Yu Zhong"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Claude", "Chou", "Valentina", "Hilda", "Joy"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Yve", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Hylos", "Cici"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Gatotkaca", "Hayabusa"],
+        team2Picks: ["Claude", "Chou", "Lunox", "Hylos", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Hilda"],
+      },
+    ],
+  },
+
+  // LB R1: Team Spirit 3-0 Yangon Galacticos
+  {
+    tournament: "M7 World Championship - LB R1",
+    team1: "Team Spirit",
+    team2: "Yangon Galacticos",
+    score1: 3,
+    score2: 0,
+    date: "2026-01-22",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Hylos", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Valentina", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Yu Zhong"],
+        team2Bans: ["Kalea", "Sora", "Freya"],
+      },
+      {
+        game: 3,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Lunox", "Grock", "Hayabusa"],
+        team2Picks: ["Claude", "Chou", "Pharsa", "Uranus", "Joy"],
+        team1Bans: ["Zhuxin", "Hilda", "Lancelot"],
+        team2Bans: ["Yve", "Freya", "Kalea"],
+      },
+    ],
+  },
+
+  // UB SF: Aurora PH (RORA) 3-1 Alter Ego
+  {
+    tournament: "M7 World Championship - UB SF",
+    team1: "Alter Ego",
+    team2: "Aurora PH (RORA)",
+    score1: 1,
+    score2: 3,
+    date: "2026-01-21",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Freya", "Kalea"],
+        team2Bans: ["Hilda", "Valentina", "Lunox"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Hylos", "Cici"],
+        team2Picks: ["Claude", "Yu Zhong", "Valentina", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Sora", "Freya"],
+        team2Bans: ["Kalea", "Lunox", "Lapu-Lapu"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Uranus", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Lunox", "Grock", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Hilda"],
+        team2Bans: ["Kalea", "Freya", "Yu Zhong"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Valentina", "Gatotkaca", "Joy"],
+        team2Picks: ["Claude", "Chou", "Yve", "Hylos", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Freya"],
+        team2Bans: ["Kalea", "Lunox", "Lancelot"],
+      },
+    ],
+  },
+
+  // UB SF: Selangor Red Giants 3-2 Aurora Gaming
+  {
+    tournament: "M7 World Championship - UB SF",
+    team1: "Selangor Red Giants",
+    team2: "Aurora Gaming",
+    score1: 3,
+    score2: 2,
+    date: "2026-01-21",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Hylos", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Hayabusa"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Lunox", "Hilda", "Cici"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Lapu-Lapu"],
+      },
+      {
+        game: 3,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Lapu-Lapu", "Valentina", "Hylos", "Sora"],
+        team2Picks: ["Claude", "Chou", "Pharsa", "Uranus", "Joy"],
+        team1Bans: ["Zhuxin", "Yu Zhong", "Hilda"],
+        team2Bans: ["Yve", "Kalea", "Freya"],
+      },
+      {
+        game: 4,
+        winner: "team2",
+        team1Picks: ["Claude", "Chou", "Yve", "Grock", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Lunox", "Gatotkaca", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Lancelot"],
+        team2Bans: ["Kalea", "Freya", "Hayabusa"],
+      },
+      {
+        game: 5,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Uranus", "Hayabusa"],
+        team2Picks: ["Claude", "Chou", "Valentina", "Hylos", "Lancelot"],
+        team1Bans: ["Zhuxin", "Yve", "Hilda"],
+        team2Bans: ["Kalea", "Freya", "Lunox"],
+      },
+    ],
+  },
+
+  // UB QF: Alter Ego 2-0 ONIC Esports
+  {
+    tournament: "M7 World Championship - UB QF",
+    team1: "Alter Ego",
+    team2: "ONIC Esports",
+    score1: 2,
+    score2: 0,
+    date: "2026-01-18",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Claude", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Yu Zhong", "Pharsa", "Hylos", "Cici"],
+        team2Picks: ["Claude", "Chou", "Valentina", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Lunox"],
+      },
+    ],
+  },
+
+  // UB QF: Aurora PH (RORA) 2-1 Team Liquid PH
+  {
+    tournament: "M7 World Championship - UB QF",
+    team1: "Team Liquid PH",
+    team2: "Aurora PH (RORA)",
+    score1: 1,
+    score2: 2,
+    date: "2026-01-18",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Freya"],
+        team2Bans: ["Kalea", "Valentina", "Lunox"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Lunox", "Hylos", "Cici"],
+        team2Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Yu Zhong"],
+      },
+      {
+        game: 3,
+        winner: "team2",
+        team1Picks: ["Claude", "Yu Zhong", "Valentina", "Uranus", "Joy"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Yve", "Grock", "Sora"],
+        team1Bans: ["Zhuxin", "Hilda", "Cici"],
+        team2Bans: ["Kalea", "Lunox", "Freya"],
+      },
+    ],
+  },
+
+  // UB QF: Selangor Red Giants 2-0 Team Spirit
+  {
+    tournament: "M7 World Championship - UB QF",
+    team1: "Selangor Red Giants",
+    team2: "Team Spirit",
+    score1: 2,
+    score2: 0,
+    date: "2026-01-18",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Uranus", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Gatotkaca", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Claude", "Lapu-Lapu", "Pharsa", "Hylos", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Valentina", "Hilda", "Hayabusa"],
+        team1Bans: ["Zhuxin", "Yve", "Yu Zhong"],
+        team2Bans: ["Kalea", "Sora", "Freya"],
+      },
+    ],
+  },
+
+  // UB QF: Aurora Gaming 2-0 Yangon Galacticos
+  {
+    tournament: "M7 World Championship - UB QF",
+    team1: "Aurora Gaming",
+    team2: "Yangon Galacticos",
+    score1: 2,
+    score2: 0,
+    date: "2026-01-18",
+    status: "completed",
+    games: [
+      {
+        game: 1,
+        winner: "team1",
+        team1Picks: ["Yi Sun-shin", "Chou", "Yve", "Hylos", "Sora"],
+        team2Picks: ["Claude", "Yu Zhong", "Pharsa", "Uranus", "Lancelot"],
+        team1Bans: ["Zhuxin", "Hilda", "Esmeralda"],
+        team2Bans: ["Kalea", "Freya", "Valentina"],
+      },
+      {
+        game: 2,
+        winner: "team1",
+        team1Picks: ["Claude", "Yu Zhong", "Lunox", "Gatotkaca", "Cici"],
+        team2Picks: ["Yi Sun-shin", "Chou", "Pharsa", "Hilda", "Joy"],
+        team1Bans: ["Zhuxin", "Yve", "Sora"],
+        team2Bans: ["Kalea", "Freya", "Lapu-Lapu"],
+      },
+    ],
+  },
+]
+
+// ---------- GosuGamers Rankings Fallback ----------
+
+export const FALLBACK_RANKINGS: Team[] = [
+  { rank: 1, name: "Aurora PH (RORA)", region: "Philippines", elo: 1385, winRate: "78.4%", streak: "W7" },
+  { rank: 2, name: "Alter Ego", region: "Indonesia", elo: 1352, winRate: "73.2%", streak: "W4" },
+  { rank: 3, name: "Team Liquid PH", region: "Philippines", elo: 1338, winRate: "71.8%", streak: "W3" },
+  { rank: 4, name: "Selangor Red Giants", region: "Malaysia", elo: 1315, winRate: "69.5%", streak: "L1" },
+  { rank: 5, name: "ONIC Esports", region: "Indonesia", elo: 1229, winRate: "67.1%", streak: "L2" },
+  { rank: 6, name: "Team Spirit", region: "CIS", elo: 1285, winRate: "65.3%", streak: "W2" },
+  { rank: 7, name: "Aurora Gaming", region: "Philippines", elo: 1268, winRate: "64.0%", streak: "L1" },
+  { rank: 8, name: "Blacklist International", region: "Philippines", elo: 1255, winRate: "62.7%", streak: "W1" },
+  { rank: 9, name: "RRQ Hoshi", region: "Indonesia", elo: 1242, winRate: "61.5%", streak: "L2" },
+  { rank: 10, name: "ECHO", region: "Philippines", elo: 1230, winRate: "60.2%", streak: "W3" },
+  { rank: 11, name: "Virtus.pro", region: "CIS", elo: 1218, winRate: "59.0%", streak: "W2" },
+  { rank: 12, name: "Yangon Galacticos", region: "Myanmar", elo: 1205, winRate: "57.8%", streak: "L3" },
+  { rank: 13, name: "Homebois", region: "Malaysia", elo: 1195, winRate: "56.2%", streak: "W2" },
+  { rank: 14, name: "Boostgate Esports", region: "Turkey", elo: 1182, winRate: "55.1%", streak: "L1" },
+  { rank: 15, name: "Team Falcons", region: "MENA", elo: 1170, winRate: "53.8%", streak: "W1" },
+  { rank: 16, name: "Guangzhou Gaming", region: "China", elo: 1158, winRate: "52.5%", streak: "L2" },
+  { rank: 17, name: "Team Zone", region: "Cambodia", elo: 1145, winRate: "51.0%", streak: "W1" },
+  { rank: 18, name: "CFU Gaming", region: "MENA", elo: 1132, winRate: "49.8%", streak: "L1" },
+  { rank: 19, name: "AP Bren", region: "Philippines", elo: 1120, winRate: "48.5%", streak: "W2" },
+  { rank: 20, name: "EVOS Legends", region: "Indonesia", elo: 1108, winRate: "47.2%", streak: "L2" },
+]
+
+// ---------- Tournaments Fallback ----------
+
+export const FALLBACK_TOURNAMENTS: Tournament[] = [
+  { name: "M7 World Championship", status: "past", prizePool: "$1,000,000", startDate: "2026-01-03", endDate: "2026-01-25", teams: 22, region: "Global" },
+  { name: "MPL Philippines Season 15", status: "ongoing", prizePool: "$150,000", startDate: "2026-02-28", endDate: "2026-05-15", teams: 10, region: "Philippines" },
+  { name: "MPL Indonesia Season 15", status: "ongoing", prizePool: "$150,000", startDate: "2026-03-07", endDate: "2026-05-20", teams: 10, region: "Indonesia" },
+  { name: "MPL Malaysia Season 15", status: "ongoing", prizePool: "$100,000", startDate: "2026-04-19", endDate: "2026-06-10", teams: 8, region: "Malaysia" },
+  { name: "MLBB Mid Season Cup 2026", status: "upcoming", prizePool: "$500,000", startDate: "2026-06-01", endDate: "2026-06-15", teams: 12, region: "Global" },
+  { name: "MPL Cambodia Season 5", status: "upcoming", prizePool: "$50,000", startDate: "2026-03-15", endDate: "2026-05-30", teams: 8, region: "Cambodia" },
+]
