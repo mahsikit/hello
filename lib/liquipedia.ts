@@ -426,8 +426,9 @@ function extractParam(block: string, paramName: string): string | null {
 }
 
 function normalizeHeroName(raw: string): string {
-  // Liquipedia sometimes uses underscores or wiki-style names
+  // Liquipedia sometimes uses underscores, wiki-style names, or HTML comments
   return raw
+    .replace(/<!--[\s\S]*?-->/g, "") // remove HTML comments
     .replace(/_/g, " ")
     .replace(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g, "$1") // remove wiki links
     .trim()
