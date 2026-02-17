@@ -175,13 +175,17 @@ export const M7_HERO_STATS: HeroStatEntry[] = [
 export async function scrapeLiquipediaHeroStats(tournamentPath: string): Promise<HeroStatEntry[]> {
   try {
     const url = `https://liquipedia.net/mobilelegends/${tournamentPath}/Statistics`
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 6000)
     const res = await fetch(url, {
       headers: {
         "User-Agent": "MLBBAutoClaw/1.0 (esports-dashboard; contact@example.com)",
         "Accept": "text/html",
       },
       next: { revalidate: 3600 },
+      signal: controller.signal,
     })
+    clearTimeout(timer)
 
     if (!res.ok) throw new Error(`Liquipedia fetch failed: ${res.status}`)
 
