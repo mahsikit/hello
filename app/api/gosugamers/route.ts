@@ -17,11 +17,29 @@ import {
 const GOSU_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
+// Timeout for external fetches (Vercel hobby plan has 10s limit)
+const FETCH_TIMEOUT_MS = 7000
+
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit & { next?: { revalidate: number } } = {},
+  timeoutMs = FETCH_TIMEOUT_MS
+): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal })
+    return res
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 // ---------- GosuGamers Scrapers ----------
 
 async function scrapeRankings(): Promise<Team[]> {
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       "https://www.gosugamers.net/mobile-legends/rankings",
       {
         headers: { "User-Agent": GOSU_UA },
@@ -133,7 +151,7 @@ function parseRankingsHTML(html: string): Team[] {
 
 async function scrapeGosuMatches(): Promise<MatchResult[]> {
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       "https://www.gosugamers.net/mobile-legends/matches/results",
       {
         headers: { "User-Agent": GOSU_UA },
@@ -257,7 +275,7 @@ function extractMatchesFromJSON(html: string): MatchResult[] {
 
 async function scrapeTournaments(): Promise<Tournament[]> {
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       "https://www.gosugamers.net/mobile-legends/tournaments",
       {
         headers: { "User-Agent": GOSU_UA },
@@ -398,12 +416,25 @@ async function getHeroStats(): Promise<HeroStatEntry[]> {
 // ---------- API Handler ----------
 
 export async function GET() {
-  const [rankings, matches, tournaments, heroStats] = await Promise.all([
+  const results = await Promise.allSettled([
     scrapeRankings(),
     getMatchesWithDrafts(),
     scrapeTournaments(),
     getHeroStats(),
   ])
+
+  const rankings = results[0].status === "fulfilled" ? results[0].value : FALLBACK_RANKINGS
+  const matches = results[1].status === "fulfilled" ? results[1].value : M7_KNOCKOUT_MATCHES
+  const tournaments = results[2].status === "fulfilled" ? results[2].value : FALLBACK_TOURNAMENTS
+  const heroStats = results[3].status === "fulfilled" ? results[3].value : []
+
+  // Log failures for debugging on Vercel
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      const names = ["rankings", "matches", "tournaments", "heroStats"]
+      console.error(`[MLBB] ${names[i]} fetch failed:`, r.reason?.message || r.reason)
+    }
+  })
 
   const data: GosuGamersData = {
     rankings,

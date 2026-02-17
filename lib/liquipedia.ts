@@ -8,6 +8,22 @@ import { HERO_ROLES } from "./mlbb-heroes"
 const LIQUIPEDIA_API = "https://liquipedia.net/mobilelegends/api.php"
 const USER_AGENT = "MLBBAutoClaw/1.0 (esports-dashboard; contact@example.com)"
 
+const FETCH_TIMEOUT_MS = 6000
+
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit & { next?: { revalidate: number } } = {},
+  timeoutMs = FETCH_TIMEOUT_MS
+): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, { ...options, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 // ---------- Public API ----------
 
 export async function scrapeLiquipediaMatches(
@@ -37,7 +53,7 @@ async function fetchAndParseWikitext(
 ): Promise<MatchResult[]> {
   const url = `${LIQUIPEDIA_API}?action=parse&page=${encodeURIComponent(pageName)}&format=json&prop=wikitext`
 
-  const res = await fetch(url, {
+  const res = await fetchWithTimeout(url, {
     headers: {
       "User-Agent": USER_AGENT,
       Accept: "application/json",
@@ -235,7 +251,7 @@ export async function scrapeLiquipediaMatchesFromHTML(
       const pageName = `${tournamentPath}/${stage}`
       const url = `${LIQUIPEDIA_API}?action=parse&page=${encodeURIComponent(pageName)}&format=json`
 
-      const res = await fetch(url, {
+      const res = await fetchWithTimeout(url, {
         headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
         next: { revalidate: 3600 },
       })
